@@ -23,8 +23,8 @@ export default class CanvasUtil {
 
         ctx.save();
         ctx.beginPath();
-        const rad = canvas.width / 2;
-        ctx.arc(rad, rad, rad, 0, Math.PI * 2, true);
+        const radius = canvas.width / 2;
+        ctx.arc(radius, radius, radius, 0, Math.PI * 2, true);
         ctx.closePath();
         ctx.clip();
 
