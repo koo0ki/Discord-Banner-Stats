@@ -20,7 +20,7 @@ export class BannerManager {
         this.updateBanner(guild!)
         setInterval(() => {
             this.updateBanner(guild!)
-        }, 2000)
+        }, 120000)
     }
 
     async updateBanner(guild: Guild) {
