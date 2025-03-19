@@ -12,8 +12,8 @@ export class Listeners {
         for (let i = 0; i < files.length; i++) {
             const listener = (await import((`${__dirname}/../../app/Listeners/${files[i]}`))).default
             this.client[
-                listener.once ? 'once' : 'on'
-            ](listener.name, (...args) => {
+                listener.options.once ? 'once' : 'on'
+            ](listener.options.name, (...args) => {
                 listener.run(this.client, ...args)
             })
             this.client.logger.info(`Loaded event ${listener.name}`)
