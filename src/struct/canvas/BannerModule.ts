@@ -29,7 +29,7 @@ export class BannerModule extends CanvasUtil {
                         ctx.font = `${info.size} ${info.font?.name}`
                         ctx.textAlign = info.font?.textAlign 
                         if (info.font?.max) {
-                            ctx.fillText(this.sliceText(userData.name, info.font.max), 403, 535)
+                            ctx.fillText(this.sliceText(userData.name, info.font.max), info.x, info.y)
                         } else {
                             ctx.fillText(userData.name, info.x, info.y)
                         }
@@ -46,7 +46,7 @@ export class BannerModule extends CanvasUtil {
                         ctx.font = `${info.size} ${info.font?.name}`
                         ctx.textAlign = info.font?.textAlign 
                         if (info.font?.max) {
-                            ctx.fillText(this.sliceText(String(voices), info.font.max), 403, 535)
+                            ctx.fillText(this.sliceText(String(voices), info.font.max), info.x, info.y)
                         } else {
                             ctx.fillText(String(voices), info.x, info.y)
                         }
@@ -58,7 +58,7 @@ export class BannerModule extends CanvasUtil {
                         ctx.font = `${info.size} ${info.font?.name}`
                         ctx.textAlign = info.font?.textAlign 
                         if (info.font?.max) {
-                            ctx.fillText(this.sliceText(String(members), info.font.max), 403, 535)
+                            ctx.fillText(this.sliceText(String(members), info.font.max), info.x, info.y)
                         } else {
                             ctx.fillText(String(members), info.x, info.y)
                         }
