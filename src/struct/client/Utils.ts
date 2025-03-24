@@ -9,7 +9,7 @@ export class Utils {
 
     getGuild() {
         return this.client.guilds.cache.get(
-            this.client.config.guildId
+            this.client.config.system.guildId
         )
     }
 

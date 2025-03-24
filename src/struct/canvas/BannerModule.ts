@@ -4,6 +4,7 @@ import CanvasUtil from "./CanvasUtils";
 import type { Guild } from "discord.js";
 
 export class BannerModule extends CanvasUtil {
+    private readonly data = this.client.config.coordinats
     constructor (client: Client) {
         super(client)
     }
@@ -12,24 +13,59 @@ export class BannerModule extends CanvasUtil {
         const background = await this.canvas.cache.image.loadImage('banner.png')
         const canvas = createCanvas(background.width, background.height)
         const ctx = canvas.getContext('2d');
-        
-        ctx.fillStyle = `#FFFFFF`
-        ctx.lineWidth = 3
-        ctx.textAlign = 'center'
-        ctx.font = `50px Gilroy-Bold`
 
         const voices = guild.members.cache.filter(m => m.voice.channel).size
         const userData = await this.client.db.getActiveMember()
-
+        const members = guild.memberCount
         const avatar = await this.getAvatar(userData.avatar)
+
         ctx.drawImage(background, 0, 0, background.width, background.height)
-        ctx.drawImage(avatar, 139, 402, 208, 208);
 
-        ctx.fillText(String(voices), 1097, 615)
-
-        ctx.textAlign = 'left'
-        ctx.font = `90px Gilroy-Bold`
-        ctx.fillText(this.sliceText(userData.name, 15), 403, 535)
+        for (const info of this.data) {
+            switch (info.type) {
+                case 'activeMember':
+                    if (info.use) {
+                        ctx.fillStyle = info?.color || '#FFFFFF'
+                        ctx.font = `${info.size} ${info.font?.name}`
+                        ctx.textAlign = info.font?.textAlign 
+                        if (info.font?.max) {
+                            ctx.fillText(this.sliceText(userData.name, info.font.max), 403, 535)
+                        } else {
+                            ctx.fillText(userData.name, info.x, info.y)
+                        }
+                    }
+                break
+                case 'avatarActiveMember':
+                    if (info.use) {
+                        ctx.drawImage(avatar, info.x, info.y, info.size, info.size);
+                    }
+                break
+                case 'voiceCount':
+                    if (info.use) {
+                        ctx.fillStyle = info?.color || '#FFFFFF'
+                        ctx.font = `${info.size} ${info.font?.name}`
+                        ctx.textAlign = info.font?.textAlign 
+                        if (info.font?.max) {
+                            ctx.fillText(this.sliceText(String(voices), info.font.max), 403, 535)
+                        } else {
+                            ctx.fillText(String(voices), info.x, info.y)
+                        }
+                    }
+                break
+                case 'memberCount':
+                    if (info.use) {
+                        ctx.fillStyle = info?.color || '#FFFFFF'
+                        ctx.font = `${info.size} ${info.font?.name}`
+                        ctx.textAlign = info.font?.textAlign 
+                        if (info.font?.max) {
+                            ctx.fillText(this.sliceText(String(members), info.font.max), 403, 535)
+                        } else {
+                            ctx.fillText(String(members), info.x, info.y)
+                        }
+                    }
+                break
+            }
+        }
 
         return canvas.toBuffer('image/png')
     }

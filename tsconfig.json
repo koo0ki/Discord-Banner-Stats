@@ -6,6 +6,7 @@
     "moduleDetection": "force",
     "jsx": "react-jsx",
     "allowJs": true,
+    "types": ["./src/types/config.d.ts"],
 
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

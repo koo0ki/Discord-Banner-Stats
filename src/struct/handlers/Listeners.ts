@@ -16,7 +16,7 @@ export class Listeners {
             ](listener.options.name, (...args) => {
                 listener.run(this.client, ...args)
             })
-            this.client.logger.info(`Loaded event ${listener.name}`)
+            this.client.logger.info(`Loaded event ${listener.options.name}`)
         }
     }
 }

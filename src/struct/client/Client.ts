@@ -28,6 +28,6 @@ export default class extends Client<true> {
 
     init () {
         this.ls.init()
-        this.login(this.config.token)
+        this.login(this.config.system.token)
     }
 }
