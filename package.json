@@ -1,5 +1,5 @@
 {
-  "name": "bannergit",
+  "name": "Discord-Banner-Stats",
   "module": "index.ts",
   "type": "module",
   "private": true,
