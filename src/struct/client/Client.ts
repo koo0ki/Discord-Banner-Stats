@@ -1,11 +1,11 @@
 import { Client, GatewayIntentBits } from "discord.js";
-import DataBase from '../../db'
 import { Listeners } from "../handlers/Listeners";
 import { Logger } from "./Logger";
 import * as config from '../../config'
 import { Utils } from "./Utils";
 import { OnlineManager } from "../managers/OnlineManager";
 import { BannerManager } from "../managers/BannerManager";
+import { Sqlite } from "../../db/Sqlite";
 
 export default class extends Client<true> {
     public readonly config: typeof config = config
@@ -15,7 +15,7 @@ export default class extends Client<true> {
         })
     }
 
-    public db = new DataBase(this)
+    public db = new Sqlite(this)
     public utils = new Utils(this)
     public logger = new Logger()
 
@@ -27,6 +27,7 @@ export default class extends Client<true> {
     private ls = new Listeners(this)
 
     init () {
+        this.db.connect()
         this.ls.init()
         this.login(this.config.system.token)
     }

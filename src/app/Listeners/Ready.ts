@@ -7,6 +7,7 @@ export default new BaseEvent({
     once: true
 }, 
     async (client: Client) => {
+        client.db.init()
         client.managers.online.init()
         client.managers.banner.init()
 

@@ -10,9 +10,11 @@ export class OnlineManager {
         const guild = this.client.utils.getGuild()
         if (guild) {
             setInterval(async () => {
-                guild.members.cache.forEach((member) => {
+                guild.members.cache.forEach(async (member) => {
                     if (member.voice.channel) {
-                        this.client.db.add(`members.${member.id}`, 1)
+                        const user = await this.client.db.users.findOne(member.id)
+                        user.online += 1
+                        await this.client.db.users.save(user)
                     }
                 });
             }, 1000);

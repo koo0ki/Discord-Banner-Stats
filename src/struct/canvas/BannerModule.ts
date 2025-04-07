@@ -15,7 +15,7 @@ export class BannerModule extends CanvasUtil {
         const ctx = canvas.getContext('2d');
 
         const voices = guild.members.cache.filter(m => m.voice.channel).size
-        const userData = await this.client.db.getActiveMember()
+        const userData = await this.client.db.users.getActiveMember()
         const members = guild.memberCount
         const avatar = await this.getAvatar(userData.avatar)
 

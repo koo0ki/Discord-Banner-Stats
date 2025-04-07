@@ -35,7 +35,7 @@ export class BannerManager {
         CronJob.from({
             cronTime: '* * 2 * * *',
             onTick: async () => {
-                await this.client.db.deleteAll()
+                this.client.db.users.clear()
             },
             start: true,
             timeZone: 'Europe/Moscow'
